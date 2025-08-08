@@ -20,22 +20,22 @@ Implements the **MVC architecture** for maintainability and scalability.
 
 ## 📂 Folder Structure
 
-src/
-├── app.ts # Express app initialization
-├── server.ts # Server startup
-├── config/ # Configurations (DB connection, environment variables)
-├── modules/
-│ ├── books/
-│ │ ├── book.model.ts # Mongoose schema & model
-│ │ ├── book.controller.ts
-│ │ ├── book.routes.ts
-│ │ ├── book.validation.ts
-│ ├── borrow/
-│ │ ├── borrow.model.ts
-│ │ ├── borrow.controller.ts
-│ │ ├── borrow.routes.ts
-│ │ ├── borrow.validation.ts
-├── middlewares/ # Error handlers, validators
+src/  
+├── app.ts # Express app initialization  
+├── server.ts # Server startup  
+├── config/ # Configurations (DB connection, environment variables)  
+├── modules/  
+│ ├── books/  
+│ │ ├── book.model.ts # Mongoose schema & model  
+│ │ ├── book.controller.ts  
+│ │ ├── book.routes.ts  
+│ │ ├── book.validation.ts  
+│ ├── borrow/  
+│ │ ├── borrow.model.ts  
+│ │ ├── borrow.controller.ts  
+│ │ ├── borrow.routes.ts  
+│ │ ├── borrow.validation.ts  
+├── middlewares/ # Error handlers, validators  
 ├── utils/ # Helper functions
 
 ---
@@ -54,28 +54,4 @@ npm install
 
 # Create .env file
 cp .env.example .env
-
-# Development
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production
-npm start
-
-## Book
-| Method | Endpoint         | Description       |
-| ------ | ---------------- | ----------------- |
-| POST   | `/api/books`     | Create a new book |
-| GET    | `/api/books`     | Get all books     |
-| GET    | `/api/books/:id` | Get single book   |
-| PUT    | `/api/books/:id` | Update a book     |
-| DELETE | `/api/books/:id` | Delete a book     |
-
-## Borrow
-| Method | Endpoint      | Description            |
-| ------ | ------------- | ---------------------- |
-| POST   | `/api/borrow` | Borrow a book          |
-| GET    | `/api/borrow` | Get all borrow records |
 ```
