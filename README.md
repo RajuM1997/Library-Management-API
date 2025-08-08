@@ -55,3 +55,32 @@ npm install
 # Create .env file
 cp .env.example .env
 ```
+
+# Development
+
+npm run dev
+
+# Build for production
+
+npm run build
+
+# Start production
+
+npm start
+
+# Book
+
+| Method | Endpoint         | Description       |
+| ------ | ---------------- | ----------------- |
+| POST   | `/api/books`     | Create a new book |
+| GET    | `/api/books`     | Get all books     |
+| GET    | `/api/books/:id` | Get single book   |
+| PUT    | `/api/books/:id` | Update a book     |
+| DELETE | `/api/books/:id` | Delete a book     |
+
+# Borrow
+
+| Method | Endpoint      | Description            |
+| ------ | ------------- | ---------------------- |
+| POST   | `/api/borrow` | Borrow a book          |
+| GET    | `/api/borrow` | Get all borrow records |
