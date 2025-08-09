@@ -22,21 +22,18 @@ Implements the **MVC architecture** for maintainability and scalability.
 
 src/  
 ├── app.ts # Express app initialization  
-├── server.ts # Server startup  
-├── config/ # Configurations (DB connection, environment variables)  
-├── modules/  
-│ ├── books/  
+├── server.ts # Server startup and Configurations (DB connection)  
+├── app/  
+│ ├── modules/  
 │ │ ├── book.model.ts # Mongoose schema & model  
-│ │ ├── book.controller.ts  
-│ │ ├── book.routes.ts  
-│ │ ├── book.validation.ts  
-│ ├── borrow/  
 │ │ ├── borrow.model.ts  
+│ ├── controller/  
+│ │ ├── book.controller.ts  
 │ │ ├── borrow.controller.ts  
+│ ├── route/  
+│ │ ├── book.routes.ts  
 │ │ ├── borrow.routes.ts  
-│ │ ├── borrow.validation.ts  
-├── middlewares/ # Error handlers, validators  
-├── utils/ # Helper functions
+│ ├── utils/ # Helper functions
 
 ---
 
