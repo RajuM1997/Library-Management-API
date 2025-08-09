@@ -1,6 +1,9 @@
 import express, { Response, Request, Application } from "express";
 import { bookRoutes } from "./app/route/book.routes";
 import { borrowRoutes } from "./app/route/borrow.routes";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app: Application = express();
 
