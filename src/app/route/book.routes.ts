@@ -3,6 +3,7 @@ import {
   createBook,
   deleteBook,
   getAllBooks,
+  getBookISBN,
   getSingleBook,
   updateBook,
 } from "../controller/book.controllers";
@@ -14,6 +15,9 @@ bookRoutes.get("/", getAllBooks);
 
 // get single book route
 bookRoutes.get("/:bookId", getSingleBook);
+
+// get single book using ISBN route
+bookRoutes.get("/isbn/check-isbn", getBookISBN);
 
 // create book route
 bookRoutes.post("/", createBook);

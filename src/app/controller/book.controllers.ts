@@ -11,7 +11,23 @@ const CreateBookZodSchema = z.object({
     ["FICTION", "NON_FICTION", "SCIENCE", "HISTORY", "BIOGRAPHY", "FANTASY"],
     { message: "Invalid genre" }
   ),
-  isbn: z.string().min(1, { message: "ISBN is required" }),
+  description: z.string().optional(),
+  isbn: z
+    .string()
+    .min(1, { message: "ISBN is required" })
+    .refine(
+      async (val) => {
+        const url = `https://library-management-lake-two.vercel.app/api/books/isbn/check-isbn?isbn=${encodeURIComponent(
+          val
+        )}`;
+        const res = await fetch(url);
+        const { exists } = await res.json();
+        return !exists;
+      },
+      {
+        message: "ISBN must be unique",
+      }
+    ),
   copies: z
     .number({ message: "Copies must be a number" })
     .min(0, { message: "Copies must be positive" }),
@@ -23,7 +39,6 @@ export const createBook = async (req: Request, res: Response) => {
   try {
     // zod parse
     const bookData = await CreateBookZodSchema.parseAsync(req.body);
-
     const newBook = await BookModel.create(bookData);
     res.status(201).json({
       success: true,
@@ -95,6 +110,17 @@ export const getSingleBook = async (req: Request, res: Response) => {
       error: error,
     });
   }
+};
+
+// get book for isbn
+export const getBookISBN = async (req: Request, res: Response) => {
+  const { isbn } = req.query;
+  if (!isbn) {
+    return res.status(400).json({ message: "ISBN is required" });
+  }
+
+  const exists = await BookModel.findOne({ isbn: isbn });
+  res.json({ exists: !!exists });
 };
 
 // update book

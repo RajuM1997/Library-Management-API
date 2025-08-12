@@ -11,6 +11,8 @@ exports.bookRoutes = express_1.default.Router();
 exports.bookRoutes.get("/", book_controllers_1.getAllBooks);
 // get single book route
 exports.bookRoutes.get("/:bookId", book_controllers_1.getSingleBook);
+// get single book using ISBN route
+exports.bookRoutes.get("/isbn/check-isbn", book_controllers_1.getBookISBN);
 // create book route
 exports.bookRoutes.post("/", book_controllers_1.createBook);
 // update book route

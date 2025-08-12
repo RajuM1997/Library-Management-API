@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBook = exports.updateBook = exports.getSingleBook = exports.getAllBooks = exports.createBook = void 0;
+exports.deleteBook = exports.updateBook = exports.getBookISBN = exports.getSingleBook = exports.getAllBooks = exports.createBook = void 0;
 const book_model_1 = require("../model/book.model");
 const zod_1 = require("zod");
 const zodErrorFormatter_1 = require("../utils/zodErrorFormatter");
@@ -18,7 +18,18 @@ const CreateBookZodSchema = zod_1.z.object({
     title: zod_1.z.string().min(1, { message: "Title is required" }),
     author: zod_1.z.string().min(1, { message: "Author name is required" }),
     genre: zod_1.z.enum(["FICTION", "NON_FICTION", "SCIENCE", "HISTORY", "BIOGRAPHY", "FANTASY"], { message: "Invalid genre" }),
-    isbn: zod_1.z.string().min(1, { message: "ISBN is required" }),
+    description: zod_1.z.string().optional(),
+    isbn: zod_1.z
+        .string()
+        .min(1, { message: "ISBN is required" })
+        .refine((val) => __awaiter(void 0, void 0, void 0, function* () {
+        const url = `https://library-management-lake-two.vercel.app/api/books/isbn/check-isbn?isbn=${encodeURIComponent(val)}`;
+        const res = yield fetch(url);
+        const { exists } = yield res.json();
+        return !exists;
+    }), {
+        message: "ISBN must be unique",
+    }),
     copies: zod_1.z
         .number({ message: "Copies must be a number" })
         .min(0, { message: "Copies must be positive" }),
@@ -100,6 +111,16 @@ const getSingleBook = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getSingleBook = getSingleBook;
+// get book for isbn
+const getBookISBN = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { isbn } = req.query;
+    if (!isbn) {
+        return res.status(400).json({ message: "ISBN is required" });
+    }
+    const exists = yield book_model_1.BookModel.findOne({ isbn: isbn });
+    res.json({ exists: !!exists });
+});
+exports.getBookISBN = getBookISBN;
 // update book
 const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
